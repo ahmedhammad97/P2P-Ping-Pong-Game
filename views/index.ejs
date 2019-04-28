@@ -2,12 +2,12 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Ping Pong</title>
   </head>
   <body>
     <h1>Ping Pong</h1>
 
-    <script>const ws = new WebSocket('ws://<%= ip %>:5050')</script>
+    <script>const socket = new WebSocket('ws://<%= ip %>:5050')</script>
     <script src="script.js"></script>
   </body>
 </html>
