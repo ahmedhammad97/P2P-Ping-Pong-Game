@@ -15,5 +15,6 @@ After exactly 2 connection, the server calls `startGame()` function, which curre
 
 The next steps are:
 - Designing the game GUI, perhaps using HTML5 Canvas or SVG.
-- Track the mouse movement on the client side, and send the Y-position whenever it changes.
+- ~~Track the mouse movement on the client side, and send the Y-position whenever it changes.~~ Done.
+- Move the player whenever the mouse position changes.
 - Move the "ghost" player position whenever the client receives a new position update.
