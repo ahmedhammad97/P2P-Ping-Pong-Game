@@ -6,7 +6,7 @@ exports.socketConnection = function(server) {
   const wss = new ws.Server({ server });
   wss.on('connection', (socket, req) => {
     handleClient(socket, req)
-    socket.on('message', message => {handleMessage(socket, message)} );
+    socket.on('message', message => {handleMessage(socket, JSON.parse(message))} );
   });
 }
 
@@ -19,21 +19,36 @@ function handleClient(socket, req) {
 function acceptClient(socket, ip){
   clients.push( {"socket" : socket, "ip" : ip} )
   console.log(ip + " connected successfully");
-  socket.send("success");
+  socket.send(JSON.stringify({"type": "success"}));
   if(clients.length === 2) startGame()
 }
 
 function rejectClient(socket, ip){
   console.log(ip + " rejected");
-  socket.send("fail");
+  socket.send(JSON.stringify({"type" : "fail"}));
 }
 
 function startGame(){
-  clients[0]["socket"].send("startGame")
-  clients[1]["socket"].send("startGame")
+  clients[0]["socket"].send(JSON.stringify({"type" : "startGame"}))
+  clients[1]["socket"].send(JSON.stringify({"type" : "startGame"}))
 }
 
 function handleMessage(socket, message){
-  console.log(message);
-  // TODO: emit it to other client
+  switch (message.type) {
+    case "mouseLocation":
+      sendToOtherPeer(message.value, socket);
+      break;
+    default:
+
+  }
+}
+
+function sendToOtherPeer(value, socket){
+  let obj = JSON.stringify({"type" : "position", "value" : value})
+  if(clients[0]["socket"] === socket){
+    clients[1]["socket"].send(obj)
+  }
+  else{
+    clients[0]["socket"].send(obj)
+  }
 }

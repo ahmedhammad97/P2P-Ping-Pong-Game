@@ -5,7 +5,13 @@
     <title>Ping Pong</title>
   </head>
   <body>
-    <h1>Ping Pong</h1>
+
+    <center>
+      <h1>Ping Pong</h1>
+      <p id="message"></p>
+
+      <!-- Game Canvas goes here -->
+    </center>
 
     <script>const socket = new WebSocket('ws://<%= ip %>:5050')</script>
     <script src="script.js"></script>
