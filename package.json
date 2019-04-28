@@ -1,0 +1,24 @@
+{
+  "name": "pingpong",
+  "version": "1.0.0",
+  "description": "Online ping pong multiplayer game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedhammad97/Multiplayer-Ping-Pong-game.git"
+  },
+  "keywords": [
+    "PingPong",
+    "Game",
+    "Multiplayer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmedhammad97/Multiplayer-Ping-Pong-game/issues"
+  },
+  "homepage": "https://github.com/ahmedhammad97/Multiplayer-Ping-Pong-game#readme"
+}
