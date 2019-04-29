@@ -1,5 +1,6 @@
 const transimissionRate = 50;
 var PositionY = 0;
+var myPaddle, otherPaddle = null;
 
 socket.onmessage = message => {
   handleMessage(JSON.parse(message.data))
@@ -19,6 +20,7 @@ function handleMessage(message){
 
     case "startGame":
       msgBar.innerHTML = ""
+      prepareGameView(message)
       trackMouse()
       beginTransimission()
       break;
@@ -29,6 +31,13 @@ function handleMessage(message){
     default:
 
   }
+}
+
+function prepareGameView(message){
+  // Add 2 players paddles
+  // Decide which is myPaddle
+  // Show game Canvas
+
 }
 
 function trackMouse(){

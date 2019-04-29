@@ -29,8 +29,8 @@ function rejectClient(socket, ip){
 }
 
 function startGame(){
-  clients[0]["socket"].send(JSON.stringify({"type" : "startGame"}))
-  clients[1]["socket"].send(JSON.stringify({"type" : "startGame"}))
+  clients[0]["socket"].send(JSON.stringify({"type" : "startGame", "pos" : "left"}))
+  clients[1]["socket"].send(JSON.stringify({"type" : "startGame", "pos" : "right"}))
 }
 
 function handleMessage(socket, message){
