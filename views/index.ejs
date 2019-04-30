@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <title>Ping Pong</title>
   </head>
-  <body>
+  <body style="background-color : #2b2b2b; color: white">
 
     <center>
       <h1>Ping Pong</h1>
       <p id="message"></p>
 
       <!-- Game Canvas goes here -->
+      <canvas id="gameTable" width="800" height="500" style="background-color : #449546"></canvas>
     </center>
 
     <script>const socket = new WebSocket('ws://<%= ip %>:5050')</script>

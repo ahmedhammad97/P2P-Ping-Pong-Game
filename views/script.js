@@ -1,10 +1,14 @@
 const transimissionRate = 50;
 var PositionY = 0;
+var canvas = document.querySelector("#gameTable");
 var myPaddle, otherPaddle = null;
+var transimission = null;
 
 socket.onmessage = message => {
   handleMessage(JSON.parse(message.data))
 }
+
+// TODO: socket.onDisconnect
 
 function handleMessage(message){
   var msgBar = document.querySelector("#message")
@@ -34,21 +38,51 @@ function handleMessage(message){
 }
 
 function prepareGameView(message){
-  // Add 2 players paddles
-  // Decide which is myPaddle
-  // Show game Canvas
+  drawTableLines()
+
+  leftPaddle = {
+    "paddle" : canvas.getContext("2d"),
+    "xPos" : 10,
+    "yPos" : 200
+  }
+  rightPaddle = {
+    "paddle" : canvas.getContext("2d"),
+    "xPos" : 785,
+    "yPos" : 200
+  }
+
+  drawPaddles(leftPaddle, rightPaddle)
+  if (message.pos === "right"){myPaddle = rightPaddle; otherPaddle = leftPaddle;}
+  else {myPaddle = leftPaddle; otherPaddle = rightPaddle;}
 
 }
 
 function trackMouse(){
-  document.addEventListener("mousemove", event => {
-    // TODO: Move game object
-    PositionY = event.clientY
+  canvas.addEventListener("mousemove", event => {
+    PositionY = event.clientY - 80
+    // Move game object
+    myPaddle.paddle.clearRect(myPaddle.xPos, myPaddle.yPos, 5, 100)
+    myPaddle.paddle.fillRect(myPaddle.xPos, PositionY, 5, 100)
+    myPaddle.yPos = PositionY
   })
 }
 
 function beginTransimission(){
-  setInterval(() => {
+  transimission = setInterval(() => {
     socket.send(JSON.stringify({"type" : "mouseLocation", "value" : PositionY}))
   } ,transimissionRate)
+}
+
+function drawTableLines(){
+  let line = canvas.getContext("2d")
+  line.fillStyle = "#FFFFFF";
+  line.fillRect(398, 0, 4, 500);
+}
+
+function drawPaddles(leftPaddle, rightPaddle){
+  leftPaddle.paddle.fillStyle = "FFFFFF"
+  leftPaddle.paddle.fillRect(10, 200, 5, 100)
+
+  rightPaddle.paddle.fillStyle = "FFFFFF"
+  rightPaddle.paddle.fillRect(785, 200, 5, 100)
 }
