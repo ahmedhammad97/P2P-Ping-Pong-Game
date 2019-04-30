@@ -41,8 +41,6 @@ function handleMessage(message){
 }
 
 function prepareGameView(message){
-  drawTableLines()
-
   leftPaddle = {
     "paddle" : canvas.getContext("2d"),
     "xPos" : 10,
@@ -62,7 +60,7 @@ function prepareGameView(message){
 
 function trackMouse(){
   canvas.addEventListener("mousemove", event => {
-    PositionY = event.clientY - 80
+    PositionY = event.clientY - canvas.offsetTop - 50;
     // Move game object
     myPaddle.paddle.clearRect(myPaddle.xPos, myPaddle.yPos, 5, 100)
     myPaddle.paddle.fillRect(myPaddle.xPos, PositionY, 5, 100)
@@ -82,11 +80,11 @@ function beginTransimission(){
   } ,transimissionRate)
 }
 
-function drawTableLines(){
+(function drawTableLines(){
   let line = canvas.getContext("2d")
   line.fillStyle = "#FFFFFF";
   line.fillRect(398, 0, 4, 500);
-}
+})()
 
 function drawPaddles(leftPaddle, rightPaddle){
   leftPaddle.paddle.fillStyle = "FFFFFF"
