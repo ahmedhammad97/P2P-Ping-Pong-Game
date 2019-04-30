@@ -33,7 +33,7 @@ function handleMessage(message){
       break;
 
     case "position":
-      // TODO: Update ghost position using message.value
+      updateOtherPos(message)
       break;
     default:
 
@@ -68,6 +68,12 @@ function trackMouse(){
     myPaddle.paddle.fillRect(myPaddle.xPos, PositionY, 5, 100)
     myPaddle.yPos = PositionY
   })
+}
+
+function updateOtherPos(message){
+  myPaddle.paddle.clearRect(otherPaddle.xPos, otherPaddle.yPos, 5, 100)
+  myPaddle.paddle.fillRect(otherPaddle.xPos, message.value, 5, 100)
+  otherPaddle.yPos = message.value
 }
 
 function beginTransimission(){
