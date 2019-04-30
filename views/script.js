@@ -1,6 +1,7 @@
 const transimissionRate = 50;
 var PositionY = 0;
 var canvas = document.querySelector("#gameTable");
+var msgBar = document.querySelector("#message");
 var myPaddle, otherPaddle = null;
 var transimission = null;
 
@@ -8,10 +9,12 @@ socket.onmessage = message => {
   handleMessage(JSON.parse(message.data))
 }
 
-// TODO: socket.onDisconnect
+socket.onclose = () => {
+    msgBar.innerHTML = "Connection lost!"
+    clearInterval(transimission)
+};
 
 function handleMessage(message){
-  var msgBar = document.querySelector("#message")
   switch (message.type) {
 
     case "success":
