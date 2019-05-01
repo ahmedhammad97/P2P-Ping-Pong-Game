@@ -3,16 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title>Ping Pong</title>
+    <style media="screen">
+      body{
+        background-color: #2b2b2b;
+        color: white;
+        padding: 0;
+        margin: 0;
+      }
+      canvas:hover{cursor: crosshair;}
+    </style>
   </head>
-  <body style="background-color : #2b2b2b; color: white">
+  <body>
 
-    <center>
-      <h1>Ping Pong</h1>
-      <p id="message"></p>
-
-      <!-- Game Canvas goes here -->
       <canvas id="gameTable" width="800" height="500" style="background-color : #449546"></canvas>
-    </center>
+      <p id="message"></p>
 
     <script>const socket = new WebSocket('ws://<%= ip %>:5050')</script>
     <script src="script.js"></script>
