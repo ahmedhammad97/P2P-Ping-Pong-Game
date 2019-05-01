@@ -10,14 +10,12 @@
 
 
 ### Progress track
-The current state is that the server allows only 2 clients to connect, and reject any further connections.
-After exactly 2 connection, the server calls `startGame()` function, which currently only sends a message to the client.
-
 The next steps are:
 - ~~Designing the game GUI, perhaps using HTML5 Canvas or SVG.~~ Done.
 - ~~Track the mouse movement on the client side, and send the Y-position whenever it changes.~~ Done.
 - ~~Move the player whenever the mouse position changes.~~ Done.
 - ~~Move the "ghost" player position whenever the client receives a new position update.~~ Done.
-- Draw the ball and Sync it's movement.
-- Add collision behaviour to it.
+- ~~Draw the ball and Sync it's movement.~~ Done.
+- ~~Add collision behaviour to it.~~ Done.
+- Sync ball movement on both clients
 - Count points/score and such.
