@@ -1,5 +1,5 @@
 const transimissionRate = 50;
-var PositionY = 0;
+var PositionY = 200;
 var canvas = document.querySelector("#gameTable");
 var msgBar = document.querySelector("#message");
 var myPaddle, otherPaddle = null;
@@ -116,7 +116,7 @@ function ballUpdate(){
   ball.yPos += ball.yVel;
 
   if(collideTop() || collideBottom()){ball.yVel = -ball.yVel}
-  if(collidePaddles()){ball.xVel = -ball.xVel; console.log("Paddle Hit!");}
+  if(collidePaddles()){ball.xVel = -ball.xVel}
   if(collideLeft()){msgBar.innerHTML = "Left player scored a goal!"; ball.xVel = -ball.xVel}
   if(collideRight()){msgBar.innerHTML = "Right player scored a goal!"; ball.xVel = -ball.xVel}
   if(nearCenter()){drawTableLines()}
@@ -124,6 +124,8 @@ function ballUpdate(){
   renderBall()
 }
 
+// Sorry for the following mess :/
+// I'll clean it when we're done :@
 function collideTop(){return ball.yPos <= 0}
 function collideBottom(){return ball.yPos + 6 >= 500}
 function collideLeft(){return ball.xPos <= 0}
@@ -135,12 +137,24 @@ function collidePaddles(){
   let otherTop = otherPaddle.yPos
   let otherBottom = otherTop + 100
   if(myPaddle.side === "left"){
-    if(ball.xVel < 0 && ball.xPos <= 20 && ball.yPos >= myPaddleTop && ball.yPos <= myPaddleBottom){setPaddleCollide(); return true;}
-    else if(ball.xVel > 0 && ball.xPos + 26 >= 800 && ball.yPos >= otherTop && ball.yPos <= otherBottom){setPaddleCollide(); return true;}
+    if(ball.xVel < 0 && ball.xPos <= 20 && ball.yPos >= myPaddleTop && ball.yPos <= myPaddleBottom){
+      setPaddleCollide();
+      return true;
+    }
+    else if(ball.xVel > 0 && ball.xPos + 26 >= 800 && ball.yPos >= otherTop && ball.yPos <= otherBottom){
+      setPaddleCollide();
+      return true;
+    }
   }
   else{
-    if(ball.xVel < 0 && ball.xPos <= 20 && ball.yPos >= otherTop && ball.yPos <= otherBottom){setPaddleCollide(); return true;}
-    else if(ball.xVel > 0 && ball.xPos + 26 >= 800 && ball.yPos >= myPaddleTop && ball.yPos <= myPaddleBottom){setPaddleCollide(); return true;}
+    if(ball.xVel < 0 && ball.xPos <= 20 && ball.yPos >= otherTop && ball.yPos <= otherBottom){
+      setPaddleCollide();
+      return true;
+    }
+    else if(ball.xVel > 0 && ball.xPos + 26 >= 800 && ball.yPos >= myPaddleTop && ball.yPos <= myPaddleBottom){
+      setPaddleCollide();
+      return true;
+    }
   }
   return false
 }
