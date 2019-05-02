@@ -38,6 +38,8 @@ function handleMessage(socket, message){
     case "mouseLocation":
       sendToOtherPeer(message.value, socket);
       break;
+    case "ballPos":
+      updateBallPos(message, socket)
     default:
 
   }
@@ -51,4 +53,8 @@ function sendToOtherPeer(value, socket){
   else{
     clients[0]["socket"].send(obj)
   }
+}
+
+function updateBallPos(message, socket){
+  clients[1]["socket"].send(JSON.stringify(message))
 }

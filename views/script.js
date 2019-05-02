@@ -1,10 +1,11 @@
 const transimissionRate = 50;
+const ballTransRate = 2000;
 var PositionY = 200;
 var canvas = document.querySelector("#gameTable");
 var msgBar = document.querySelector("#message");
 var myPaddle, otherPaddle = null;
 var ball = null;
-var transimission = null;
+var transimission, ballTrans = null;
 var paddleCollide = false;
 
 socket.onmessage = message => {
@@ -34,10 +35,15 @@ function handleMessage(message){
       prepareGameView(message)
       trackMouse()
       beginTransimission()
+      if (message.pos === "left") transimitBallPos()
       break;
 
     case "position":
       updatePaddle(otherPaddle, otherPaddle.xPos, message.value)
+      break;
+
+    case "ballPos":
+      updateBallPos(message.obj)
       break;
     default:
 
@@ -67,8 +73,8 @@ function prepareGameView(message){
     "shape" : canvas.getContext("2d"),
     "xPos" : 397,
     "yPos" : 247,
-    "yVel" : 5,
-    "xVel" : 5
+    "xVel" : 5,
+    "yVel" : 5
   }
 
   setInterval(ballUpdate, transimissionRate)
@@ -86,6 +92,13 @@ function beginTransimission(){
   transimission = setInterval(() => {
     socket.send(JSON.stringify({"type" : "mouseLocation", "value" : PositionY}))
   } ,transimissionRate)
+}
+
+function transimitBallPos(){
+  ballTrans = setInterval(() => {
+    let obj = {"xPos" : ball.xPos, "yPos" : ball.yPos, "xVel" : ball.xVel, "yVel" : ball.yVel}
+    socket.send(JSON.stringify({"type": "ballPos", "obj" : obj}))
+  }, ballTransRate)
 }
 
 function drawTableLines(){
@@ -107,6 +120,15 @@ function updatePaddle(paddle, x, y){
   paddle.paddle.fillRect(x, y, 5, 100)
   paddle.xPos = x
   paddle.yPos = y
+}
+
+function updateBallPos(pos){
+  clearBall()
+  ball.xPos = pos.xPos;
+  ball.yPos = pos.yPos;
+  ball.xVel = pos.xVel;
+  ball.yVel = pos.yVel;
+  renderBall()
 }
 
 function ballUpdate(){
