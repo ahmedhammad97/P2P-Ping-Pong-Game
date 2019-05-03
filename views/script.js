@@ -139,8 +139,8 @@ function ballUpdate(){
 
   if(collideTop() || collideBottom()){ball.yVel = -ball.yVel}
   if(collidePaddles()){ball.xVel = -ball.xVel}
-  if(collideLeft()){msgBar.innerHTML = "Left player scored a goal!"; ball.xVel = -ball.xVel}
-  if(collideRight()){msgBar.innerHTML = "Right player scored a goal!"; ball.xVel = -ball.xVel}
+  if(collideLeft()){msgBar.innerHTML = "Right player scored a goal!"; ball.xVel = -ball.xVel}
+  if(collideRight()){msgBar.innerHTML = "Left player scored a goal!"; ball.xVel = -ball.xVel}
   if(nearCenter()){drawTableLines()}
 
   renderBall()
