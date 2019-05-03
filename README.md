@@ -17,5 +17,7 @@ The next steps are:
 - ~~Move the "ghost" player position whenever the client receives a new position update.~~ Done.
 - ~~Draw the ball and Sync it's movement.~~ Done.
 - ~~Add collision behaviour to it.~~ Done.
-- Sync ball movement on both clients
+- ~~Sync ball movement on both clients~~ Done.
 - Count points/score and such.
+- Styling
+- Report
