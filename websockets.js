@@ -11,7 +11,7 @@ exports.socketConnection = function(server, otherPeer) {
   peerSide = otherPeer.side;
   wss.on('connection', (socket, req) => {
     handleClient(socket, req)
-    socket.on('message', message => {messageToPeer(JSON.parse(message))} );
+    socket.on('message', message => {messageToPeer(message)} );
   });
   conn.on('data', data => {messageToClient(data)} );
 }
@@ -36,18 +36,12 @@ function rejectClient(socket, ip){
 }
 
 function startGame(){
+  console.log("Game started");
   clients[0]["socket"].send(JSON.stringify({"type" : "startGame", "pos" : peerSide}))
 }
 
 function messageToPeer(message){
-  switch (message.type) {
-    case "mouseLocation":
-      conn.write(JSON.stringify({"type" : "position", "value" : message.value}))
-      break;
-    case "ballPos":
-      conn.write(JSON.stringify(message))
-      break;
-  }
+  conn.write(message)
 }
 
 function messageToClient(message){
@@ -55,5 +49,5 @@ function messageToClient(message){
     peerReady = true;
     if(IamReady && peerReady) startGame()
   }
-  else clients[0]["socket"].send(message)
+  else clients[0]["socket"].send(message.toString())
 }

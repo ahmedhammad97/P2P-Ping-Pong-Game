@@ -1,4 +1,5 @@
-const transimissionRate = 50;
+const transimissionRate = 250;
+const ballUpdateRate = 50;
 const ballTransRate = 2000;
 var PositionY = 200;
 var canvas = document.querySelector("#gameTable");
@@ -9,6 +10,7 @@ var transimission, ballTrans = null;
 var paddleCollide = false;
 
 socket.onmessage = message => {
+  //console.log(message.data);
   handleMessage(JSON.parse(message.data))
 }
 
@@ -77,7 +79,7 @@ function prepareGameView(message){
     "yVel" : 5
   }
 
-  setInterval(ballUpdate, transimissionRate)
+  setInterval(ballUpdate, ballUpdateRate)
 }
 
 function trackMouse(){
@@ -90,7 +92,7 @@ function trackMouse(){
 
 function beginTransimission(){
   transimission = setInterval(() => {
-    socket.send(JSON.stringify({"type" : "mouseLocation", "value" : PositionY}))
+    socket.send(JSON.stringify({"type" : "position", "value" : PositionY}))
   } ,transimissionRate)
 }
 
