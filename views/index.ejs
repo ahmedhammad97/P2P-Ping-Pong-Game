@@ -18,7 +18,7 @@
       <canvas id="gameTable" width="800" height="500" style="background-color : #449546"></canvas>
       <p id="message"></p>
 
-    <script>const socket = new WebSocket('ws://<%= ip %>:5050')</script>
+    <script>const socket = new WebSocket('ws://<%= ip %>:<%= port %>')</script>
     <script src="script.js"></script>
   </body>
 </html>
