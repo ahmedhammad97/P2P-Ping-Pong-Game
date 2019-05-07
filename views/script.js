@@ -11,7 +11,8 @@ var paddleCollide = false;
 
 socket.onmessage = message => {
   //console.log(message.data);
-  handleMessage(JSON.parse(message.data))
+  try {handleMessage(JSON.parse(message.data)) }
+  catch (e) {console.log(message, e)}
 }
 
 socket.onclose = () => {

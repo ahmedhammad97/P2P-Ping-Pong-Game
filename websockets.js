@@ -45,7 +45,7 @@ function messageToPeer(message){
 }
 
 function messageToClient(message){
-  if(JSON.parse(message).type === "ready"){
+  if(!peerReady && JSON.parse(message).type === "ready"){
     peerReady = true;
     if(IamReady && peerReady) startGame()
   }
