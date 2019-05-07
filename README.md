@@ -3,11 +3,16 @@
 ### How to run
 1. Clone / Download the repository
 2. Make sure all dependencies are installed by typing: `npm install`
-3. Run the server by typing: `node server.js`
-4. Now, using any device connected to the same network, connect to the server as follows:
-	1. If the device running the server has an IP of `192.168.1.5` for example
-	2. type in the browser: `http://192.168.1.5:5050`
+3. Run each client in a seperate terminal by typing: `node app.js`
+4. A message should appear in the terminal stating how to view the game. ex: `Game available on: 192.168.1.21:5053` 
+5. Using any two devices' browsers which is connected to the same network, connect to the server using these ip and port numbers.
 
+### Major change
+Due to the sudden update on Piazza, we had to refactor the project, moving it from Server-Client orientation, to Peer-To-Peer.
+
+Therefor, I used a new package called `discovery-swarm`, which allows peer discovery for other devices sharing the same newtwork.
+
+Also some major changes happened to the view-side and socket implementation.
 
 ### Progress track
 The next steps are:
