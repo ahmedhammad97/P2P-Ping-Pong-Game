@@ -4,10 +4,14 @@ const ballTransRate = 2000;
 var PositionY = 200;
 var canvas = document.querySelector("#gameTable");
 var msgBar = document.querySelector("#message");
+var leftScoreBoard = document.querySelector("#leftScore");
+var rightScoreBoard = document.querySelector("#rightScore");
 var myPaddle, otherPaddle = null;
 var ball = null;
 var transimission, ballTrans = null;
 var paddleCollide = false;
+var leftScore = 0;
+var rightScore = 0;
 
 socket.onmessage = message => {
   //console.log(message.data);
@@ -142,8 +146,8 @@ function ballUpdate(){
 
   if(collideTop() || collideBottom()){ball.yVel = -ball.yVel}
   if(collidePaddles()){ball.xVel = -ball.xVel}
-  if(collideLeft()){msgBar.innerHTML = "Right player scored a goal!"; ball.xVel = -ball.xVel}
-  if(collideRight()){msgBar.innerHTML = "Left player scored a goal!"; ball.xVel = -ball.xVel}
+  if(collideLeft()){incrementRightScore(); ball.xVel = -ball.xVel}
+  if(collideRight()){incrementLeftScore(); ball.xVel = -ball.xVel}
   if(nearCenter()){drawTableLines()}
 
   renderBall()
@@ -196,4 +200,14 @@ function clearBall(){
 
 function renderBall(){
   ball.shape.fillRect(ball.xPos, ball.yPos, 6, 6)
+}
+
+function incrementLeftScore(){
+  leftScore++;
+  leftScoreBoard.innerHTML = leftScore;
+}
+
+function incrementRightScore(){
+  rightScore++;
+  rightScoreBoard.innerHTML = rightScore;
 }

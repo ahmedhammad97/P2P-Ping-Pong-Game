@@ -9,13 +9,18 @@
         color: white;
         padding: 0;
         margin: 0;
+        font-size: 20px;
+        font-family: monospace;
       }
       canvas:hover{cursor: crosshair;}
+      p{margin-left: 20px;}
     </style>
   </head>
   <body>
 
       <canvas id="gameTable" width="800" height="500" style="background-color : #449546"></canvas>
+      <p>Left Score: <span id="leftScore">0</span></p>
+      <p>Right Score: <span id="rightScore">0</span></p>
       <p id="message"></p>
 
     <script>const socket = new WebSocket('ws://<%= ip %>:<%= port %>')</script>

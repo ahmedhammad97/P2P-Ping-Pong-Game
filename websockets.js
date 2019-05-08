@@ -45,9 +45,13 @@ function messageToPeer(message){
 }
 
 function messageToClient(message){
-  if(!peerReady && JSON.parse(message).type === "ready"){
-    peerReady = true;
-    if(IamReady && peerReady) startGame()
+  try {
+    if(!peerReady && JSON.parse(message).type === "ready"){
+      peerReady = true;
+      if(IamReady && peerReady) startGame()
+    }
+    else clients[0]["socket"].send(message.toString())
+  } catch (e) {
+    console.log("Facing some troubles in websocket module :')");
   }
-  else clients[0]["socket"].send(message.toString())
 }
