@@ -23,6 +23,6 @@ The next steps are:
 - ~~Draw the ball and Sync it's movement.~~ Done.
 - ~~Add collision behaviour to it.~~ Done.
 - ~~Sync ball movement on both clients~~ Done.
-- Count points/score and such.
+- ~~Count points/score and such.~~ Done.
 - Styling
 - Report
