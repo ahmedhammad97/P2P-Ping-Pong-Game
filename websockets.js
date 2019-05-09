@@ -6,6 +6,7 @@ var peerSide = null;
 var IamReady, peerReady = false;
 
 exports.socketConnection = function(server, otherPeer) {
+  console.log("Connected with other Peer.. Woohooo!");
   const wss = new ws.Server({ server });
   conn = otherPeer.conn;
   peerSide = otherPeer.side;
