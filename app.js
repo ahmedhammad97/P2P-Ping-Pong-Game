@@ -5,7 +5,7 @@ const ip = require('ip');
 const app = express();
 const serverPort = 5000 + Math.floor((Math.random() * 500) + 1);
 const swPort = 6000 + Math.floor((Math.random() * 500) + 1);
-const sw = swarm();
+const sw = swarm({maxConnections: 1});
 sw.listen(swPort);
 sw.join('PingPong');
 
@@ -21,13 +21,17 @@ app.get('/', (req, res) => {res.render('index', {"ip" : ip.address(), "port" : s
 
 // Discovered Peer
 var timer = null;
+var connected = false;
 sw.on('connection', function(conn, info) {
+  if(connected){return;}
   if(!conn.server){
     timer = setTimeout(() => {
+      connected = true;
       webSocket.socketConnection(server, {"conn" : conn, "side" : "right"})
     }, 1000)
   }
   else{
+    connected = true;
     // Socket Api
     webSocket.socketConnection(server, {"conn" : conn, "side" : "left"});
     clearTimeout(timer)
