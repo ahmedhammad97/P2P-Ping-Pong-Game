@@ -38,6 +38,8 @@ Paddle position is transmitted every few hundreds milliseconds, which ball posit
 - Ejs view engine
 - Ws (websocket server)
 
+**The branch [native-peer-discovery](https://github.com/ahmedhammad97/P2P-Ping-Pong-game/tree/native-peer-discovery) has an implementation of the "Peer discovery" module, without any use of discovery packages. It only uses built-in [dgram](https://nodejs.org/api/dgram.html) and [net](https://nodejs.org/api/net.html) libraries, which turns out to have better performance, and less overhead.**
+
 ## Screenshots
 ![Screenshot](https://github.com/ahmedhammad97/P2P-Ping-Pong-game/blob/master/screenshots/sc1.png)
 
