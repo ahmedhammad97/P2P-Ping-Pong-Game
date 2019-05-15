@@ -33,8 +33,8 @@ Paddle position is transmitted every few hundreds milliseconds, which ball posit
 ## Technologies
 - Node.js
 - Express.js
-- [Discovery Swarm](https://github.com/mafintosh/discovery-swarm)
-- [Discovery Channel](https://github.com/maxogden/discovery-channel)
+- Dgram
+- Net
 - Ejs view engine
 - Ws (websocket server)
 
