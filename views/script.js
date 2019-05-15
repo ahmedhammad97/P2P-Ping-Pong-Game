@@ -1,4 +1,4 @@
-const transimissionRate = 250;
+const transimissionRate = 200;
 const ballUpdateRate = 50;
 const ballTransRate = 2000;
 var PositionY = 200;
