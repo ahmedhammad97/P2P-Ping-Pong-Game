@@ -1,13 +1,13 @@
 const express = require('express');
-const swarm = require('discovery-swarm')
-const webSocket = require(__dirname + '/websockets');
+const dgram = require('dgram');
+const net = require('net');
 const ip = require('ip');
+const webSocket = require(__dirname + '/websockets');
+const serverPort = 6000 + Math.floor((Math.random() * 500) + 1);
+const broadcastPort = 5678;
+const broadcastIp = "255.255.255.255";
+
 const app = express();
-const serverPort = 5000 + Math.floor((Math.random() * 500) + 1);
-const swPort = 6000 + Math.floor((Math.random() * 500) + 1);
-const sw = swarm({maxConnections: 1});
-sw.listen(swPort);
-sw.join('PingPong');
 
 // For static front-end files
 app.use(express.static('views'));
@@ -19,21 +19,37 @@ const server = app.listen(serverPort, () => {console.log("Game available on: " +
 // Main Endpoint
 app.get('/', (req, res) => {res.render('index', {"ip" : ip.address(), "port" : serverPort})});
 
-// Discovered Peer
-var timer = null;
-var connected = false;
-sw.on('connection', function(conn, info) {
-  if(connected){return;}
-  if(!conn.server){
-    timer = setTimeout(() => {
-      connected = true;
-      webSocket.socketConnection(server, {"conn" : conn, "side" : "right"})
-    }, 1000)
+
+var socketServer = net.createServer(function(socket) {
+  clearInterval(interval);
+	socket.setEncoding("utf8");
+  socket.on('data', function(data) {
+    webSocket.socketConnection(server, {"conn" : socket, "side" : "left"})
+  });
+});
+socketServer.listen(serverPort+1);
+
+
+const socket = dgram.createSocket({type: 'udp4', reuseAddr: true});
+socket.bind(broadcastPort);
+socket.on('listening', ()=>{socket.setBroadcast(true);})
+var interval = setInterval(broadcast, 1000)
+
+socket.on('message', function(msg, info) {
+  msg = msg.toString()
+  if(msg == serverPort) return;
+
+	else{
+    clearInterval(interval)
+    var client = new net.Socket();
+    client.connect(parseInt(msg)+1, info.address, function() {
+    	client.write(JSON.stringify({"ip": ip.address(), "port": serverPort}));
+    });
+		webSocket.socketConnection(server, {"conn" : client, "side" : "right"})
   }
-  else{
-    connected = true;
-    // Socket Api
-    webSocket.socketConnection(server, {"conn" : conn, "side" : "left"});
-    clearTimeout(timer)
-  }
-})
+
+});
+
+function broadcast(message){
+  socket.send(Buffer.from(serverPort.toString()), broadcastPort, broadcastIp);
+}
